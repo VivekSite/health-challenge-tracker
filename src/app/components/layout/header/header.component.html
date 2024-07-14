@@ -1,0 +1,92 @@
+<nav
+  class="h-14 bg-slate-100 shadow-sm flex items-center justify-between sticky top-0 px-5 md:px-[10rem] lg:px-[15rem]"
+>
+  <p-button
+    class="size-10 rounded-full bg-blue-500 flex justify-center items-center hover:cursor-pointer"
+    (onClick)="navigateToHome()"
+  >
+    <span class="pi pi-home text-slate-200 text-xl"></span>
+  </p-button>
+  <p-button
+    class="shadow-md p-2 rounded-md hover:cursor-pointer text-blue-500"
+    (onClick)="showDialog()"
+    >Tack challenge</p-button
+  >
+</nav>
+<div>
+  <p-dialog
+    [(visible)]="visible"
+    [modal]="true"
+    closable="false"
+    [draggable]="false"
+  >
+    <ng-template pTemplate="header">
+      <h2 class="font-semibold text-lg">Add Your Challenge</h2>
+    </ng-template>
+    <form
+      [formGroup]="challengeAddingForm"
+      (submit)="handleChallengeCreation()"
+      class="mt-5 flex flex-col gap-8"
+    >
+      <div>
+        <p-floatLabel class="rounded-md">
+          <input
+            class="w-full p-2 border"
+            id="username"
+            type="text"
+            pInputText
+            formControlName="username"
+          />
+          <label for="username">Username</label>
+        </p-floatLabel>
+        <small >hello</small>
+      </div>
+      <div>
+        <p-floatLabel class="border rounded-md">
+          <input
+            class="w-full p-2"
+            id="workout_type"
+            type="text"
+            pInputText
+            formControlName="workout_type"
+          />
+          <label for="workout_type">Workout Type</label>
+        </p-floatLabel>
+        <small></small>
+      </div>
+      <div>
+        <p-floatLabel class="border rounded-md">
+          <input
+            class="w-full p-2"
+            id="workout_minute"
+            type="number"
+            pInputText
+            formControlName="workout_minute"
+          />
+          <label for="workout_minute">Workout Minute</label>
+        </p-floatLabel>
+        <small></small>
+      </div>
+    </form>
+    <ng-template pTemplate="footer">
+      <button
+        class="outline-none px-4 mx-1 py-2 shadow-sm rounded-md bg-slate-100 text-sm"
+        (click)="hideDialog()"
+      >
+        Cancel
+      </button>
+      <button
+        class="outline-none px-4 mx-1 py-2 shadow-sm rounded-md {{
+          !challengeAddingForm.valid
+            ? 'bg-blue-300 text-gray-200'
+            : 'bg-blue-400 text-white'
+        }} text-sm"
+        (click)="handleChallengeCreation()"
+        type="submit"
+        [disabled]="!challengeAddingForm.valid"
+      >
+        Save
+      </button>
+    </ng-template>
+  </p-dialog>
+</div>

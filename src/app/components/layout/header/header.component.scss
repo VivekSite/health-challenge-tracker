@@ -1,0 +1,19 @@
+:host ::ng-deep .p-dialog{
+  width: 25rem !important;
+}
+
+@media (min-width: 768px) {
+  :host ::ng-deep .p-dialog{
+    width: 30rem !important;
+  }
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
+
+input[type=number] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
