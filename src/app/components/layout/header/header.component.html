@@ -1,17 +1,18 @@
 <nav
-  class="h-14 bg-slate-100 shadow-sm flex items-center justify-between sticky top-0 px-5 md:px-[10rem] lg:px-[15rem]"
+  class="h-14 bg-slate-100 shadow-md flex items-center justify-between px-5 lg:px-[10rem] xl:px-[15rem]"
 >
-  <p-button
+  <div
     class="size-10 rounded-full bg-blue-500 flex justify-center items-center hover:cursor-pointer"
     (onClick)="navigateToHome()"
   >
     <span class="pi pi-home text-slate-200 text-xl"></span>
-  </p-button>
-  <p-button
+  </div>
+  <button
     class="shadow-md p-2 rounded-md hover:cursor-pointer text-blue-500"
-    (onClick)="showDialog()"
-    >Tack challenge</p-button
+    (click)="showDialog()"
   >
+    Add Workout
+  </button>
 </nav>
 <div>
   <p-dialog
@@ -21,11 +22,11 @@
     [draggable]="false"
   >
     <ng-template pTemplate="header">
-      <h2 class="font-semibold text-lg">Add Your Challenge</h2>
+      <p class="font-semibold text-xl">Add Your Challenge</p>
     </ng-template>
     <form
-      [formGroup]="challengeAddingForm"
-      (submit)="handleChallengeCreation()"
+      [formGroup]="workoutAddingForm"
+      (submit)="handleWorkoutAddition()"
       class="mt-5 flex flex-col gap-8"
     >
       <div>
@@ -35,37 +36,55 @@
             id="username"
             type="text"
             pInputText
+            [ngClass]="{
+              'border-rose-600 outline outline-1 outline-rose-600':
+                isInValidField('username')
+            }"
             formControlName="username"
           />
           <label for="username">Username</label>
         </p-floatLabel>
-        <small >hello</small>
+        <small class="text-rose-600" *ngIf="isInValidField('username')"
+          >username is required</small
+        >
       </div>
       <div>
-        <p-floatLabel class="border rounded-md">
+        <p-floatLabel class="rounded-md">
           <input
-            class="w-full p-2"
+            class="w-full p-2 border"
             id="workout_type"
             type="text"
             pInputText
             formControlName="workout_type"
+            [ngClass]="{
+              'border-rose-600 outline outline-1 outline-rose-600':
+                isInValidField('workout_type')
+            }"
           />
           <label for="workout_type">Workout Type</label>
         </p-floatLabel>
-        <small></small>
+        <small class="text-rose-600" *ngIf="isInValidField('workout_type')"
+          >Workout type is required</small
+        >
       </div>
       <div>
-        <p-floatLabel class="border rounded-md">
+        <p-floatLabel class="rounded-md">
           <input
-            class="w-full p-2"
+            class="w-full p-2 border"
             id="workout_minute"
             type="number"
             pInputText
             formControlName="workout_minute"
+            [ngClass]="{
+              'border-rose-600 outline outline-1 outline-rose-600':
+                isInValidField('workout_minute')
+            }"
           />
           <label for="workout_minute">Workout Minute</label>
         </p-floatLabel>
-        <small></small>
+        <small class="text-rose-600" *ngIf="isInValidField('workout_minute')"
+          >Workout minute is required and must be a number</small
+        >
       </div>
     </form>
     <ng-template pTemplate="footer">
@@ -77,13 +96,13 @@
       </button>
       <button
         class="outline-none px-4 mx-1 py-2 shadow-sm rounded-md {{
-          !challengeAddingForm.valid
+          !workoutAddingForm.valid
             ? 'bg-blue-300 text-gray-200'
             : 'bg-blue-400 text-white'
         }} text-sm"
-        (click)="handleChallengeCreation()"
+        (click)="handleWorkoutAddition()"
         type="submit"
-        [disabled]="!challengeAddingForm.valid"
+        [disabled]="!workoutAddingForm.valid"
       >
         Save
       </button>

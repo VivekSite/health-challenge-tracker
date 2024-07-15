@@ -11,6 +11,9 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { WorkoutType } from '../../../types';
+import { WorkoutDataService } from '../../../services/workout-data.service';
 
 @Component({
   selector: 'app-header',
@@ -22,14 +25,19 @@ import {
     AvatarModule,
     FloatLabelModule,
     ReactiveFormsModule,
+    CommonModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  constructor(private router: Router, private fb: FormBuilder) {}
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private wd: WorkoutDataService
+  ) {}
 
-  visible: boolean = true;
+  visible: boolean = false;
   showDialog() {
     this.visible = true;
   }
@@ -41,18 +49,35 @@ export class HeaderComponent {
     this.router.navigate(['']);
   }
 
-  challengeAddingForm!: FormGroup;
+  handleWorkoutAddition = () => {};
+  workoutAddingForm!: FormGroup;
   ngOnInit() {
-    this.challengeAddingForm = this.fb.group({
+    if (!localStorage.getItem('data')) {
+      localStorage.setItem('data', JSON.stringify(this.wd.getWorkoutData()));
+    } else {
+      this.wd.setWorkoutData(JSON.parse(localStorage.getItem('data') || ''))
+    }
+
+    this.workoutAddingForm = this.fb.group({
       username: ['', Validators.required],
       workout_type: ['', Validators.required],
-      workout_minute: ['' , Validators.required],
+      workout_minute: ['', Validators.required],
     });
+
+    this.handleWorkoutAddition = () => {
+      this.wd.addWorkout(
+        this.workoutAddingForm.value.username,
+        this.workoutAddingForm.value.workout_type,
+        this.workoutAddingForm.value.workout_minute
+      );
+
+      this.workoutAddingForm.reset();
+      this.hideDialog();
+    };
   }
 
-  handleChallengeCreation() {
-    console.log(this.challengeAddingForm);
-    this.challengeAddingForm.reset();
-    this.hideDialog();
+  isInValidField(field: string) {
+    const input = this.workoutAddingForm.get(field);
+    return input?.dirty && input?.invalid;
   }
 }
