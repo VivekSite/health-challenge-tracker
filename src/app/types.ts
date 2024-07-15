@@ -1,13 +1,9 @@
 export interface WorkoutType {
+  id: number;
   username: string;
-  workout_type: string[];
-  workout_minute: number[];
-  total_workout_minutes: number;
-}
-
-export interface GroupedWorkoutData {
-  username: string;
-  workout_types: string;
-  total_workouts: number;
+  workouts: {
+    type: string,
+    minutes: number,
+  }[];
   total_workout_minutes: number;
 }

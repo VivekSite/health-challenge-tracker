@@ -55,8 +55,8 @@
     <ng-template pTemplate="body" let-workout>
       <tr>
         <td>{{ workout.username }}</td>
-        <td>{{ workout.workout_type.join(',') }}</td>
-        <td>{{ workout.workout_type.length}}</td>
+        <td>{{ getWorkoutTypes(workout.workouts) }}</td>
+        <td>{{ workout.workouts.length}}</td>
         <td>{{ workout.total_workout_minutes }}</td>
       </tr>
     </ng-template>
