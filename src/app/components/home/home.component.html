@@ -12,10 +12,10 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th style="width:20%">Name</th>
-        <th style="width:40%">Workout Type</th>
-        <th style="width:20%">Number Of Workout</th>
-        <th style="width:20%">Total Workout Minutes</th>
+        <th style="width: 20%">Name</th>
+        <th style="width: 40%">Workout Type</th>
+        <th style="width: 20%">Number Of Workout</th>
+        <th style="width: 20%">Total Workout Minutes</th>
       </tr>
       <tr>
         <th class="font-normal">
@@ -28,35 +28,28 @@
         </th>
         <th class="font-normal">
           <p-columnFilter
-          type="text"
-          field="workout_type"
-          placeholder="Search"
-          ariaLabel="Filter Users"
-        />
+            type="text"
+            field="workout_types"
+            placeholder="Search"
+            ariaLabel="Filter Users"
+          />
         </th>
+        <th class="font-normal"></th>
         <th class="font-normal">
           <p-columnFilter
-          type="text"
-          field="workout_minute"
-          placeholder="Search"
-          ariaLabel="Filter Users"
-        />
-        </th>
-        <th class="font-normal">
-          <p-columnFilter
-          type="text"
-          field="total_workout_minutes"
-          placeholder="Search"
-          ariaLabel="Filter Users"
-        />
+            type="text"
+            field="total_workout_minutes"
+            placeholder="Search"
+            ariaLabel="Filter Users"
+          />
         </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-workout>
       <tr>
         <td>{{ workout.username }}</td>
-        <td>{{ getWorkoutTypes(workout.workouts) }}</td>
-        <td>{{ workout.workouts.length}}</td>
+        <td>{{ workout.workout_types }}</td>
+        <td>{{ workout.workouts.length }}</td>
         <td>{{ workout.total_workout_minutes }}</td>
       </tr>
     </ng-template>

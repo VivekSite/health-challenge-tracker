@@ -22,8 +22,4 @@ export class HomeComponent {
   ngOnInit() {
     this.data = this.wd.getWorkoutData();
   }
-  
-  getWorkoutTypes(workouts: { type: string; minutes: number }[]): string {
-    return workouts.map(workout => workout.type).join(', ');
-  }
 }

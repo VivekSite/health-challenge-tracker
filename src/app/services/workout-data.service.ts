@@ -17,6 +17,7 @@ export class WorkoutDataService {
           minutes: 25,
         },
       ],
+      workout_types: 'Core Exercises',
       total_workout_minutes: 25,
     },
     {
@@ -28,6 +29,7 @@ export class WorkoutDataService {
           minutes: 30,
         },
       ],
+      workout_types: 'Back Exercise',
       total_workout_minutes: 30,
     },
     {
@@ -39,6 +41,7 @@ export class WorkoutDataService {
           minutes: 20,
         },
       ],
+      workout_types: 'Stretching Exercise',
       total_workout_minutes: 20,
     },
   ];
@@ -65,6 +68,7 @@ export class WorkoutDataService {
             minutes: workout_minute,
           },
         ],
+        workout_types: workout_type,
         total_workout_minutes: workout_minute,
       });
     } else {
@@ -72,6 +76,7 @@ export class WorkoutDataService {
         type: workout_type,
         minutes: workout_minute,
       });
+      this.data[existingUserIndex].workout_types += `, ${workout_type}`;
       this.data[existingUserIndex].total_workout_minutes += workout_minute;
     }
 

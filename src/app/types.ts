@@ -5,5 +5,6 @@ export interface WorkoutType {
     type: string,
     minutes: number,
   }[];
+  workout_types: string;
   total_workout_minutes: number;
 }
